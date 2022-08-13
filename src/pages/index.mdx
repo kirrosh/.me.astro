@@ -1,4 +1,10 @@
-import Counter from "../components/Counter.jsx";
+---
+layout: "../layouts/Layout.astro"
+---
+
+import Plus from "../components/Plus.jsx";
+import Minus from "../components/Minus.jsx";
+import DisplayCounter from "../components/DisplayCounter.jsx";
 import Title from "../components/Title.astro";
 export const components = { h1: Title };
 
@@ -14,7 +20,9 @@ Written by: {new Intl.ListFormat('en').format(authors.map(d => d.name))}.
 
 Published on: {new Intl.DateTimeFormat('en', {dateStyle: 'long'}).format(published)}.
 
-<Counter></Counter>
+<Plus client:load />
+<DisplayCounter client:load />
+<Minus client:load />
 
 ## Syntax highlighting
 
