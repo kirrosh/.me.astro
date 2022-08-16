@@ -39,14 +39,19 @@ export const loadStoreFromCookies = (
   cookieString: string,
   stores: string[]
 ) => {
-  const c = cookieString.split("; ").map((value) => value.split("="));
-  const cookieMap = new Map<string, object>(
-    c?.map(([key, value]) => [key, JSON.parse(decodeURIComponent(value))])
-  );
-  stores.forEach((storeKey) => {
-    if (cookieMap.has(storeKey) && cookiesStores.get(storeKey)) {
-      const [get, set] = cookiesStores.get(storeKey);
-      set(cookieMap.get(storeKey));
-    }
-  });
+  try {
+    const c = cookieString.split("; ").map((value) => value.split("="));
+    const cookieMap = new Map<string, object>(
+      c?.map(([key, value]) => [key, JSON.parse(decodeURIComponent(value))])
+    );
+    stores.forEach((storeKey) => {
+      if (cookieMap.has(storeKey) && cookiesStores.get(storeKey)) {
+        const [get, set] = cookiesStores.get(storeKey);
+        set(cookieMap.get(storeKey));
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    console.log("error loading cookie");
+  }
 };
