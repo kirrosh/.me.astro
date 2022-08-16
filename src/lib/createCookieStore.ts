@@ -1,4 +1,5 @@
 import { createEffect } from "solid-js";
+import { isServer } from "solid-js/web";
 import { createStore, SetStoreFunction, Store } from "solid-js/store";
 
 import useCookie from "../lib/useCookie";
@@ -20,6 +21,13 @@ export function createProxyStore<T extends {}>(
         }
       ]
 ): [get: Store<T>, set: SetStoreFunction<T>] {
+  if (isServer) {
+    const innerStore = createStore(store, options);
+    if (!cookiesStores.has(options.name)) {
+      cookiesStores.set(options.name, innerStore);
+    }
+    return innerStore;
+  }
   const [cookieValue, setCookie] = useCookie(options.name);
   const innerStore = createStore(
     cookieValue() !== null ? JSON.parse(cookieValue()!) : store,
@@ -32,7 +40,7 @@ export function createProxyStore<T extends {}>(
   createEffect(() => {
     setCookie(JSON.stringify(innerValue));
   });
-  return [innerValue, setValue];
+  return innerStore;
 }
 
 export const loadStoreFromCookies = (
