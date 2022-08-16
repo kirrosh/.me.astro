@@ -1,4 +1,23 @@
-import { createSignal } from "solid-js";
+import { createSignal, createRoot } from "solid-js";
+import { createProxyStore } from "../lib/createCookieStore";
+
+type ITodosStore = {
+  todos: { text: string; completed: boolean }[];
+};
+
+function createCounter() {
+  const proxStore = createProxyStore<ITodosStore>(
+    { todos: [] },
+    { name: "todos" }
+  );
+  const [store, setStore] = proxStore;
+  const addTodo = (text: string) => {
+    setStore("todos", (todos) => [...todos, { text, completed: false }]);
+  };
+  return { store, setStore, addTodo };
+}
+
+export const rootCounter = createRoot(createCounter);
 
 export const counterSignal = createSignal(0);
 const [count, setCount] = counterSignal;

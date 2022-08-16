@@ -1,0 +1,16 @@
+---
+import DisplayCounter from "../components/DisplayCounter";
+import Minus from "../components/Minus";
+import Plus from "../components/Plus";
+import Layout from "../layouts/Layout.astro"
+import { loadStoreFromCookies } from "../lib/createCookieStore";
+const cookies = Astro.request.headers.get('cookie')
+if (cookies) {
+    loadStoreFromCookies(cookies, ['todos'])
+}
+---
+<Layout title="Statefull">
+    <Plus client:load />
+    <DisplayCounter client:load />
+    <Minus client:load />
+</Layout>
