@@ -1,4 +1,5 @@
-import { set, get, remove } from "js-cookie";
+import * as Cookie from "js-cookie";
+const { set, get, remove } = Cookie;
 import type { CookieAttributes } from "js-cookie";
 import { Accessor, createSignal } from "solid-js";
 
