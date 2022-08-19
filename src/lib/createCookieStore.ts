@@ -6,7 +6,7 @@ import useCookie from "../lib/useCookie";
 
 const cookiesStores = new Map();
 
-export function createProxyStore<T extends {}>(
+export function createCoolieStore<T extends {}>(
   ...[store, options]: {} extends T
     ? [
         store: T | Store<T>,

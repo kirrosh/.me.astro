@@ -1,12 +1,12 @@
 import { createSignal, createRoot } from "solid-js";
-import { createProxyStore } from "../lib/createCookieStore";
+import { createCoolieStore } from "../lib/createCookieStore";
 
 type ITodosStore = {
   todos: { text: string; completed: boolean }[];
 };
 
 function createCounter() {
-  const proxStore = createProxyStore<ITodosStore>(
+  const proxStore = createCoolieStore<ITodosStore>(
     { todos: [] },
     { name: "todos" }
   );

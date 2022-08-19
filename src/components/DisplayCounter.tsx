@@ -1,3 +1,4 @@
+import "astro/jsx-runtime";
 import { counterSignal, rootCounter } from "./counterSignal";
 
 export default function DisplayCounter() {
