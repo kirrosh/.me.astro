@@ -1,44 +1,80 @@
 ---
-import RComp from '../../components/RComp'
 ---
 
-<div class="grid grid-cols-2">
-    <div class="p-8">
+<div class="w-full h-full p-4 flex">
+  <div
+    class="border border-primary border-dashed flex-1 grid place-items-center"
+  >
+    <h1
+      class="lg:hidden block font-extrabold text-transparent md:text-8xl sm:text-6xl text-4xl text bg-clip-text bg-gradient-to-r from-primary to-primary"
+    >
+      Kirill Koshelev
+    </h1>
+    <div
+      class="lg:grid hidden gap-x-8 gap-y-4 grid-cols-2 md:grid-cols-[auto_1fr]"
+    >
+      <h1
+        class="place-self-end font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-primary to-primary"
+      >
+        Kirill
+      </h1>
+      <h1
+        class="font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-primary to-secondary"
+      >
+        Koshelev
+      </h1>
+      <div
+        class="place-self-end text-transparent text-3xl bg-clip-text bg-gradient-to-r from-primary to-primary"
+      >
+        Frontend
+      </div>
+      <div class="flex gap-2 items-center">
+        <div class="badge badge-primary">Typescript</div>
+        <div class="badge badge-primary">Next JS</div>
+        <div class="badge badge-primary">Tailwind</div>
+        <div class="badge badge-primary">React</div>
+        <div class="badge badge-secondary">Solid JS</div>
+        <div class="badge badge-secondary">Astro</div>
+        <div class="badge badge-accent">Svelte</div>
+        <div class="badge badge-accent">Flutter</div>
+      </div>
 
+      <div
+        class="place-self-end text-transparent text-3xl bg-clip-text bg-gradient-to-r from-secondary to-secondary"
+      >
+        Backend
+      </div>
+      <div class="flex gap-2 items-center">
+        <div class="badge badge-secondary">Node JS</div>
+        <div class="badge badge-secondary">Nest JS</div>
+        <div class="badge badge-accent">Deno</div>
+        <div class="badge badge-ghost badge-outline">Rust</div>
+      </div>
+      <div
+        class="place-self-end text-transparent text-3xl bg-clip-text bg-gradient-to-r from-accent to-accent"
+      >
+        Web 3.0
+      </div>
+      <div class="flex gap-2 items-center">
+        <div class="badge badge-secondary">Ethereum</div>
+        <div class="badge badge-secondary">Remix</div>
+        <div class="badge badge-secondary">Wagmi</div>
+        <div class="badge badge-secondary">Hardhat</div>
+        <div class="badge badge-accent">Solidity</div>
+        <div class="badge badge-accent">Polygon</div>
+        <div class="badge badge-ghost badge-outline">Solana</div>
+      </div>
+      <div
+        class="place-self-end text-transparent text-3xl bg-clip-text bg-gradient-to-r from-primary to-primary"
+      >
+        Tools
+      </div>
+      <div class="flex gap-2 items-center">
+        <div class="badge badge-primary">VS Code</div>
+        <div class="badge badge-primary">Github Copilot</div>
+        <div class="badge badge-primary">GitKraken</div>
+        <div class="badge badge-primary">Vercel</div>
+      </div>
     </div>
-    <div class="p-8">
-        <div class="grid w-full h-20 grid-cols-10 grid-rows-2 border-b border-r border-black">
-            <div class="border-t border-l border-black">
-                <RComp />
-            </div>
-            <div class="col-span-2 border-t border-l border-black">
-            </div>
-            <div class="border-t border-l border-black">
-
-            </div>
-            <div class="col-span-2 border-t border-l border-black">
-
-            </div>
-            <div class="border-t border-l border-black">
-
-            </div>
-            <div class="border-t border-l border-black">
-
-            </div>
-            <div class="col-span-2 row-span-2 border-t border-l border-black">
-
-            </div>
-                <!-- Second row -->
-            <div class="col-span-4 border-t border-l border-black">
-
-            </div>
-            <div class="col-span-2 border-t border-l border-black">
-
-            </div>
-            <div class="col-span-2 border-t border-l border-black">
-
-            </div>
-           
-        </div>
-    </div>
+  </div>
 </div>

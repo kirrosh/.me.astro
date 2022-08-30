@@ -1,4 +1,4 @@
-import { createSignal, createRoot } from "solid-js";
+import { createRoot } from "solid-js";
 import { createCoolieStore } from "../lib/createCookieStore";
 
 type ITodosStore = {
@@ -18,8 +18,3 @@ function createCounter() {
 }
 
 export const rootCounter = createRoot(createCounter);
-
-export const counterSignal = createSignal(0);
-const [count, setCount] = counterSignal;
-export const increment = () => setCount(count() + 1);
-export const decrement = () => setCount(count() - 1);
