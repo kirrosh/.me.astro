@@ -1,0 +1,43 @@
+import { createEffect, createSignal, For } from "solid-js";
+import { ITheme, themes, THEME_COOKIE_NAME } from "../lib/getThemeFromCookie";
+import useCookie from "../lib/useCookie";
+
+type Props = {
+  themeFromCookie: string;
+};
+
+const capitalize = (value: string) =>
+  value.charAt(0).toUpperCase() + value.slice(1);
+
+export const ThemePicker = ({ themeFromCookie }: Props) => {
+  const [theme, setTheme] = useCookie(THEME_COOKIE_NAME);
+  const themeOrDefault = () => {
+    const res = theme();
+    if (res !== null) return res as ITheme;
+    return themeFromCookie as ITheme;
+  };
+
+  createEffect(() => {
+    document.documentElement.setAttribute("data-theme", themeOrDefault());
+  });
+
+  return (
+    <div class="dropdown  dropdown-end">
+      <label tabindex="0" class="btn m-1">
+        {capitalize(themeOrDefault())}
+      </label>
+      <ul
+        tabindex="0"
+        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 max-h-[400px] overflow-auto"
+      >
+        <For each={themes}>
+          {(theme, i) => (
+            <li onClick={() => setTheme(theme)}>
+              <a>{capitalize(theme)}</a>
+            </li>
+          )}
+        </For>
+      </ul>
+    </div>
+  );
+};

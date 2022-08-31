@@ -10,14 +10,14 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^0.10.2",
+    "@astrojs/mdx": "^0.10.3",
     "@astrojs/solid-js": "^1.1.0",
     "@astrojs/tailwind": "^1.0.0",
     "@types/js-cookie": "2.2.1",
     "astro": "^1.1.1",
     "prettier": "^2.7.1",
-    "prettier-plugin-astro": "^0.5.3",
-    "solid-js": "^1.5.2"
+    "prettier-plugin-astro": "^0.5.4",
+    "solid-js": "^1.5.3"
   },
   "dependencies": {
     "@astrojs/vercel": "^1.0.1",

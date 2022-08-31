@@ -1,6 +1,14 @@
+---
+import { ThemePicker } from "./ThemePicker";
+export interface Props {
+  theme: string;
+}
+const { theme } = Astro.props as Props;
+---
+
 <div class="navbar bg-base-100 border-b border-b-primary border-dashed">
-  <div class="navbar-start sm:hidden block">
-    <div class="dropdown">
+  <div class="navbar-start">
+    <div class="dropdown sm:hidden block">
       <label tabindex="0" class="btn btn-ghost btn-circle">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -25,15 +33,21 @@
       </ul>
     </div>
   </div>
-  <div class="navbar-center hidden sm:block">
-    <a class="btn btn-ghost no-animation normal-case text-xl" href="/">Home</a>
-    <a
-      class="btn btn-ghost no-animation normal-case text-xl btn-disabled"
-      href="/">Blog</a
-    >
-    <a
-      class="btn btn-ghost no-animation normal-case text-xl btn-disabled"
-      href="/cv">CV</a
-    >
+  <div class="navbar-center">
+    <div class="gap-2 hidden sm:flex">
+      <a class="btn btn-ghost no-animation normal-case text-xl" href="/">Home</a
+      >
+      <a
+        class="btn btn-ghost no-animation normal-case text-xl btn-disabled"
+        href="/">Blog</a
+      >
+      <a
+        class="btn btn-ghost no-animation normal-case text-xl btn-disabled"
+        href="/cv">CV</a
+      >
+    </div>
+  </div>
+  <div class="navbar-end">
+    <ThemePicker client:visible themeFromCookie={theme} />
   </div>
 </div>
