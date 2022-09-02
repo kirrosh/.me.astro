@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import { PtsCanvas } from "../components/PtsCanvas";
 import { getThemeFromCookie } from "../lib/getThemeFromCookie";
 
 export interface Props {
@@ -22,8 +23,13 @@ const theme = getThemeFromCookie(cookies);
   </head>
   <body class="flex flex-col h-screen w-screen">
     <Header theme={theme} />
-    <main class="flex-1">
-      <slot />
+    <main class="flex-1 relative">
+      <div class="absolute top-0 left-0 h-full w-full z-10">
+        <PtsCanvas client:only="solid-js" />
+      </div>
+      <div class="absolute top-0 left-0 h-full w-full z-20">
+        <slot />
+      </div>
     </main>
     <footer class="footer items-center p-4 bg-neutral text-neutral-content">
       <div
@@ -33,8 +39,8 @@ const theme = getThemeFromCookie(cookies);
         <img src="/vercel.svg" alt="image description" class="h-8" />
         <div class="divider divider-horizontal hidden sm:flex"></div>
         <img src="/astro.svg" alt="image description" class="h-10 mt-[9px]" />
-        <!-- <div class="divider divider-horizontal"></div>
-        <img src="/solid.svg" alt="image description" class="h-8" /> -->
+        <div class="divider divider-horizontal"></div>
+        <img src="/solid.svg" alt="image description" class="h-8" />
         <div class="divider divider-horizontal hidden sm:flex"></div>
         <img src="/tailwind.svg" alt="image description" class="h-8" />
         <div class="divider divider-horizontal hidden sm:flex"></div>

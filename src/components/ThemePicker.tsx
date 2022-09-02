@@ -1,6 +1,12 @@
 import { createEffect, createSignal, For } from "solid-js";
 import { isServer } from "solid-js/web";
-import { ITheme, themes, THEME_COOKIE_NAME } from "../lib/getThemeFromCookie";
+import { themeSignal } from "../features/theme/themeSignal";
+import {
+  ITheme,
+  themes,
+  THEME_COOKIE_NAME,
+  DEFAULT_THEME,
+} from "../lib/getThemeFromCookie";
 import useCookie from "../lib/useCookie";
 
 type Props = {
@@ -11,10 +17,11 @@ const capitalize = (value: string) =>
   value.charAt(0).toUpperCase() + value.slice(1);
 
 export const ThemePicker = ({ themeFromCookie }: Props) => {
-  const [theme, setTheme] = isServer
-    ? createSignal(THEME_COOKIE_NAME)
-    : useCookie(THEME_COOKIE_NAME);
+  const [theme, setTheme] = themeSignal;
   const themeOrDefault = () => {
+    if (isServer) {
+      return themeFromCookie;
+    }
     const res = theme();
     if (res !== null) return res as ITheme;
     return themeFromCookie as ITheme;
