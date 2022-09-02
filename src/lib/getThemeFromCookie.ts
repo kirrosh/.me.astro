@@ -33,7 +33,7 @@ export const themes = [
 export type ITheme = typeof themes[number];
 
 export const THEME_COOKIE_NAME = "theme";
-export const DEFAULT_THEME: ITheme = "wireframe";
+export const DEFAULT_THEME: ITheme = "forest";
 
 export const getThemeFromCookie = (cookieString: string | null) => {
   if (!cookieString) {

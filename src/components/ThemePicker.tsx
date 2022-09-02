@@ -1,13 +1,7 @@
-import { createEffect, createSignal, For } from "solid-js";
+import { createEffect, For } from "solid-js";
 import { isServer } from "solid-js/web";
 import { themeSignal } from "../features/theme/themeSignal";
-import {
-  ITheme,
-  themes,
-  THEME_COOKIE_NAME,
-  DEFAULT_THEME,
-} from "../lib/getThemeFromCookie";
-import useCookie from "../lib/useCookie";
+import { ITheme, themes } from "../lib/getThemeFromCookie";
 
 type Props = {
   themeFromCookie: string;
