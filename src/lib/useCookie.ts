@@ -2,16 +2,30 @@ import * as Cookie from "js-cookie";
 const { set, get, remove } = Cookie;
 import type { CookieAttributes } from "js-cookie";
 import { Accessor, createSignal } from "solid-js";
+import { isServer } from "solid-js/web";
 
-const useCookie = (
-  cookieName: string
+const createCookieSignal = (
+  cookieName: string,
+  defaultValue?: string
 ): [
   Accessor<string | null>,
   (newValue: string, options?: CookieAttributes) => void,
   () => void
 ] => {
+  if (isServer) {
+    const [value, setValue] = createSignal<string | null>(defaultValue || null);
+    return [
+      value,
+      (newValue: string, options?: CookieAttributes) => {
+        setValue(newValue);
+      },
+      () => {
+        setValue(null);
+      },
+    ];
+  }
   const [value, setValue] = createSignal<string | null>(
-    get(cookieName) || null
+    get(cookieName) || defaultValue || null
   );
   const updateCookie = (newValue: string, options?: CookieAttributes) => {
     set(cookieName, newValue, options);
@@ -25,4 +39,4 @@ const useCookie = (
   return [value, updateCookie, deleteCookie];
 };
 
-export default useCookie;
+export default createCookieSignal;

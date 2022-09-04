@@ -1,7 +1,10 @@
 ---
-import Header from "../components/Header.astro";
-import { PtsCanvas } from "../components/PtsCanvas";
-import { getThemeFromCookie } from "../lib/getThemeFromCookie";
+import Header from "@components/Header.astro";
+import { PtsCanvas } from "@components/PtsCanvas";
+import {
+  getCookieStoreValue,
+  loadStoreFromCookies,
+} from "@lib/createCookieStore";
 
 export interface Props {
   title: string;
@@ -9,11 +12,12 @@ export interface Props {
 
 const { title } = Astro.props as Props;
 const cookies = Astro.request.headers.get("cookie");
-const theme = getThemeFromCookie(cookies);
+loadStoreFromCookies(cookies, ["themeStore"]);
+const themeStore = getCookieStoreValue("themeStore");
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme={theme}>
+<html lang="en" data-theme={themeStore.theme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -22,7 +26,7 @@ const theme = getThemeFromCookie(cookies);
     <title>{title}</title>
   </head>
   <body class="flex flex-col h-screen w-screen">
-    <Header theme={theme} />
+    <Header />
     <main class="flex-1 relative">
       <div class="absolute top-0 left-0 h-full w-full z-10">
         <PtsCanvas client:only="solid-js" />

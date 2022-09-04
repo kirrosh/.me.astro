@@ -1,11 +1,11 @@
 import { CanvasSpace, Create, Group, IPlayer, Line } from "pts";
 import { Accessor, createEffect, createMemo, onMount } from "solid-js";
-import { themeSignal } from "../features/theme/themeSignal";
+import { themeStore } from "@features/theme/themesStore";
 
 let color = "250, 250, 250";
 
 export const PtsCanvas = () => {
-  const [theme] = themeSignal;
+  const { setTheme, store } = themeStore;
   getComputedStyle(document.documentElement).backgroundColor;
   let space: Accessor<CanvasSpace | void> = () => {};
 
@@ -19,7 +19,7 @@ export const PtsCanvas = () => {
     );
 
   createEffect(() => {
-    theme();
+    console.log(store.theme);
 
     setTimeout(() => {
       color = secondaryColor();

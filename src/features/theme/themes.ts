@@ -34,18 +34,3 @@ export type ITheme = typeof themes[number];
 
 export const THEME_COOKIE_NAME = "theme";
 export const DEFAULT_THEME: ITheme = "forest";
-
-export const getThemeFromCookie = (cookieString: string | null) => {
-  if (!cookieString) {
-    return DEFAULT_THEME;
-  }
-  const c = cookieString.split("; ").map((value) => value.split("="));
-
-  const theme = c.find(([key, value]) => {
-    return key === THEME_COOKIE_NAME;
-  });
-  if (theme) {
-    return theme[1];
-  }
-  return DEFAULT_THEME;
-};

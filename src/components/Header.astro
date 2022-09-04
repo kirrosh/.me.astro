@@ -1,9 +1,5 @@
 ---
-import { ThemePicker } from "./ThemePicker";
-export interface Props {
-  theme: string;
-}
-const { theme } = Astro.props as Props;
+import { ThemePicker } from "@features/theme/ThemePicker";
 ---
 
 <div class="navbar bg-base-100 border-b border-b-primary border-dashed">
@@ -48,6 +44,6 @@ const { theme } = Astro.props as Props;
     </div>
   </div>
   <div class="navbar-end">
-    <ThemePicker client:visible themeFromCookie={theme} />
+    <ThemePicker client:visible />
   </div>
 </div>
