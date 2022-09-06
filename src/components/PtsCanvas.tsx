@@ -2,7 +2,11 @@ import { CanvasSpace, Create, Group, IPlayer, Line } from "pts";
 import { Accessor, createEffect, createMemo, onMount } from "solid-js";
 import { themeStore } from "@features/theme/themesStore";
 
+// TODO create Solid-Store for colors
+
 let color = "250, 250, 250";
+let secondary = "250, 250, 250";
+let accent = "250, 250, 250";
 
 export const PtsCanvas = () => {
   const { setTheme, store } = themeStore;
@@ -13,7 +17,15 @@ export const PtsCanvas = () => {
     hslToRgb(
       getComputedStyle(document.documentElement).getPropertyValue("--b1")
     );
+  const accentColor = () =>
+    hslToRgb(
+      getComputedStyle(document.documentElement).getPropertyValue("--a")
+    );
   const secondaryColor = () =>
+    hslToRgb(
+      getComputedStyle(document.documentElement).getPropertyValue("--s")
+    );
+  const primaryColor = () =>
     hslToRgb(
       getComputedStyle(document.documentElement).getPropertyValue("--p")
     );
@@ -22,7 +34,9 @@ export const PtsCanvas = () => {
     console.log(store.theme);
 
     setTimeout(() => {
-      color = secondaryColor();
+      color = primaryColor();
+      accent = accentColor();
+      secondary = secondaryColor();
       space()?.clear(`rgb(${backgroundColor()})`);
     }, 0);
   });
@@ -66,7 +80,9 @@ const createPlayer = (space: CanvasSpace) => {
           1 - lp.$subtract(p).magnitude() / (space.size.x / 2)
         );
         form.stroke(`rgba(${color},${ratio}`, ratio * 2).line([p, lp]);
-        form.fillOnly(["#f03", "#09f", "#0c6"][i % 3]).point(p, 1);
+        form
+          .fillOnly([`rgba(${accent})`, `rgba(${secondary})`][i % 2])
+          .point(p, 2, "circle");
       });
     },
     resize: (bound) => {

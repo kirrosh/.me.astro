@@ -13,13 +13,13 @@ export const ThemePicker = () => {
   });
 
   return (
-    <div class="dropdown  dropdown-end">
+    <div class="dropdown-end dropdown">
       <label tabindex="0" class="btn m-1">
         {capitalize(store.theme)}
       </label>
       <ul
         tabindex="0"
-        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 max-h-[400px] overflow-auto"
+        class="dropdown-content menu rounded-box max-h-[400px] w-52 overflow-auto bg-base-100 p-2 shadow"
       >
         <For each={themes}>
           {(theme, i) => (

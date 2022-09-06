@@ -11,6 +11,7 @@ specifiers:
   js-cookie: 2.2.1
   prettier: ^2.7.1
   prettier-plugin-astro: ^0.5.4
+  prettier-plugin-tailwindcss: ^0.1.13
   pts: ^0.10.12
   solid-js: ^1.5.3
 
@@ -28,6 +29,7 @@ devDependencies:
   astro: 1.1.1
   prettier: 2.7.1
   prettier-plugin-astro: 0.5.4
+  prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
   solid-js: 1.5.3
 
 packages:
@@ -3362,6 +3364,15 @@ packages:
       prettier: 2.7.1
       sass-formatter: 0.7.5
       synckit: 0.7.3
+    dev: true
+
+  /prettier-plugin-tailwindcss/0.1.13_prettier@2.7.1:
+    resolution: {integrity: sha512-/EKQURUrxLu66CMUg4+1LwGdxnz8of7IDvrSLqEtDqhLH61SAlNNUSr90UTvZaemujgl3OH/VHg+fyGltrNixw==}
+    engines: {node: '>=12.17.0'}
+    peerDependencies:
+      prettier: '>=2.2.0'
+    dependencies:
+      prettier: 2.7.1
     dev: true
 
   /prettier/2.7.1:
