@@ -17,7 +17,7 @@ const { title } = Astro.props as Props;
   <title>{title}</title>
 
   <body class="flex flex-col h-screen w-screen">
-    <script is:inline>
+    <script is:raw>
       !(function () {
         try {
           var d = document.documentElement,
