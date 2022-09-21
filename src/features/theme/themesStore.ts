@@ -8,7 +8,7 @@ type IThemeStore = {
 
 export const themeRoot = createRoot(() => {
   const [store, setStore] = createStore<IThemeStore>(
-    { theme: DEFAULT_THEME },
+    { theme: localStorage.getItem("theme") as ITheme || DEFAULT_THEME },
     { name: "themeStore" }
   );
 

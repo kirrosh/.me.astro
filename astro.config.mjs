@@ -6,7 +6,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), solidJs(), tailwind()],
+  integrations: [tailwind(), mdx(), solidJs()],
   output: "server",
   adapter: vercel(),
 });
