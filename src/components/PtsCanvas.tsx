@@ -1,6 +1,6 @@
 import { CanvasSpace, Create, Group, IPlayer, Line } from "pts";
 import { Accessor, createEffect, createMemo, onMount } from "solid-js";
-import { themeStore } from "@features/theme/themesStore";
+import { themeRoot } from "@features/theme/themesStore";
 
 // TODO create Solid-Store for colors
 
@@ -9,7 +9,7 @@ let secondary = "250, 250, 250";
 let accent = "250, 250, 250";
 
 export const PtsCanvas = () => {
-  const { setTheme, store } = themeStore;
+  const { setTheme, store } = themeRoot;
   getComputedStyle(document.documentElement).backgroundColor;
   let space: Accessor<CanvasSpace | void> = () => {};
 

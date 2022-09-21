@@ -1,21 +1,21 @@
-import { createEffect, For } from "solid-js";
-import { themes } from "./themes";
-import { themeStore } from "./themesStore";
+import { For, onMount } from "solid-js";
+import { DEFAULT_THEME, ITheme, themes } from "./themes";
+import { themeRoot } from "./themesStore";
 
 const capitalize = (value: string) =>
   value.charAt(0).toUpperCase() + value.slice(1);
 
 export const ThemePicker = () => {
-  const { setTheme, store } = themeStore;
-
-  createEffect(() => {
-    document.documentElement.setAttribute("data-theme", store.theme);
+  const { store, setTheme } = themeRoot;
+  onMount(() => {
+    const localTheme =
+      (localStorage.getItem("theme") as ITheme) || DEFAULT_THEME;
+    setTheme(localTheme);
   });
-
   return (
     <div class="dropdown-end dropdown">
       <label tabindex="0" class="btn m-1">
-        {capitalize(store.theme)}
+        {capitalize(store.theme === DEFAULT_THEME ? "theme" : store.theme)}
       </label>
       <ul
         tabindex="0"

@@ -1,25 +1,24 @@
 import { createRoot } from "solid-js";
 import { DEFAULT_THEME, ITheme } from "./themes";
-import { createCookieStore } from "@lib/createCookieStore";
+import { createStore } from "solid-js/store";
 
 type IThemeStore = {
   theme: ITheme;
 };
 
-export const createThemeStore = () => {
-  const [store, setStore] = createRoot(() =>
-    createCookieStore<IThemeStore>(
-      { theme: DEFAULT_THEME },
-      { name: "themeStore" }
-    )
+export const themeRoot = createRoot(() => {
+  const [store, setStore] = createStore<IThemeStore>(
+    { theme: DEFAULT_THEME },
+    { name: "themeStore" }
   );
 
   const setTheme = (theme: ITheme) => {
     setStore("theme", () => {
       return theme;
     });
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   };
-  return { store, setTheme };
-};
 
-export const themeStore = createRoot(createThemeStore);
+  return { store, setTheme };
+});

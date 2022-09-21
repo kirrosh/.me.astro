@@ -1,31 +1,33 @@
 ---
 import Header from "@components/Header.astro";
 import { PtsCanvas } from "@components/PtsCanvas";
-import {
-  getCookieStoreValue,
-  loadStoreFromCookies,
-} from "@lib/createCookieStore";
-
 export interface Props {
   title: string;
 }
 
 const { title } = Astro.props as Props;
-const cookies = Astro.request.headers.get("cookie");
-loadStoreFromCookies(cookies, ["themeStore"]);
-const themeStore = getCookieStoreValue("themeStore");
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme={themeStore.theme}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+
   <body class="flex flex-col h-screen w-screen">
+    <script is:inline>
+      !(function () {
+        try {
+          var d = document.documentElement,
+            n = "data-theme",
+            s = "setAttribute";
+          var e = localStorage.getItem("theme");
+          d[s](n, e || "");
+        } catch (e) {}
+      })();
+    </script>
     <Header />
     <main class="flex-1 relative">
       <div class="absolute top-0 left-0 h-full w-full z-10">
@@ -41,20 +43,9 @@ const themeStore = getCookieStoreValue("themeStore");
       <div
         class="items-center flex flex-wrap justify-self-center gap-4 sm:gap-0 justify-center"
       >
-        <p class="text-xl mr-2 hidden md:block">Powered by</p>
-        <img src="/vercel.svg" alt="image description" class="h-8" />
-        <div class="divider divider-horizontal hidden sm:flex"></div>
-        <img src="/astro.svg" alt="image description" class="h-10 mt-[9px]" />
-        <div class="divider divider-horizontal"></div>
-        <img src="/solid.svg" alt="image description" class="h-8" />
-        <div class="divider divider-horizontal hidden sm:flex"></div>
-        <img src="/tailwind.svg" alt="image description" class="h-8" />
-        <div class="divider divider-horizontal hidden sm:flex"></div>
-        <div
-          class="font-title text-primary inline-flex transition-all duration-200 text-3xl font-semibold"
-        >
-          <span class="lowercase">daisy</span>
-          <span class="text-base-content uppercase">UI</span>
+        <div class="flex gap-4">
+          <p>Contacts:</p>
+          <a class="link link-secondary">https://t.me/kirrosh9</a>
         </div>
       </div>
     </footer>
