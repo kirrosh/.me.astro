@@ -1,5 +1,6 @@
 ---
 import { ThemePicker } from "@features/theme/ThemePicker";
+const path = Astro.url.pathname;
 ---
 
 <div class="navbar bg-base-100 border-b border-b-primary border-dashed">
@@ -24,21 +25,32 @@ import { ThemePicker } from "@features/theme/ThemePicker";
         class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li><a href="/">Home</a></li>
-        <!-- <li><a href="/">Blog</a></li>
-        <li><a href="/cv">CV</a></li> -->
+        <li><a href="/">Blog</a></li>
+        <!-- <li><a href="/cv">CV</a></li> -->
       </ul>
     </div>
   </div>
   <div class="navbar-center">
     <div class="gap-2 hidden sm:flex">
-      <a class="btn btn-ghost no-animation normal-case text-xl" href="/">Home</a
+      <a
+        class:list={[
+          "btn btn-ghost no-animation normal-case text-xl",
+          { underline: path === "/" },
+        ]}
+        href="/">Profile</a
       >
       <a
-        class="btn btn-ghost no-animation normal-case text-xl btn-disabled"
-        href="/">Blog</a
+        class:list={[
+          "btn btn-ghost no-animation normal-case text-xl",
+          { underline: path === "/blog" },
+        ]}
+        href="/blog">Blog</a
       >
       <a
-        class="btn btn-ghost no-animation normal-case text-xl btn-disabled"
+        class:list={[
+          "btn btn-ghost no-animation normal-case text-xl btn-disabled",
+          { underline: path === "/cv" },
+        ]}
         href="/cv">CV</a
       >
     </div>

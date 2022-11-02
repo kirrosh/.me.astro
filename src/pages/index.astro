@@ -1,8 +1,14 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Profile from "@features/profile/Profile.astro";
+import { PtsCanvas } from "@components/PtsCanvas";
 ---
 
 <Layout title="Profile">
-  <Profile />
+  <div class="absolute top-0 left-0 h-full w-full z-20">
+    <Profile />
+  </div>
+  <div class="absolute top-0 left-0 h-full w-full z-10">
+    <PtsCanvas client:only="solid-js" />
+  </div>
 </Layout>
