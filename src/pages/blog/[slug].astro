@@ -1,0 +1,26 @@
+---
+import Post from "@features/blog/Post.astro";
+import Layout from "@layouts/Layout.astro";
+import { findSlug } from "src/utils/find-slug";
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob("../../posts/**/*.mdx");
+  return posts.map((post) => ({
+    params: {
+      slug: findSlug(post.file),
+    },
+    props: {
+      post,
+    },
+  }));
+}
+
+const { Content } = Astro.props.post;
+console.log(Astro.props.post);
+---
+
+<Layout title="Blog">
+  <Post>
+    <Content />
+  </Post>
+</Layout>

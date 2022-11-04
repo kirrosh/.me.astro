@@ -1,8 +1,10 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Blog from "@features/blog/Blog.astro";
+
+const posts = await Astro.glob("../../posts/**/*.mdx");
 ---
 
 <Layout title="Blog">
-  <Blog />
+  <Blog posts={posts} />
 </Layout>

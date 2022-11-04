@@ -1,11 +1,24 @@
+---
+import type { MarkdownInstance } from "astro";
+import { findSlug } from "src/utils/find-slug";
+type Props = {
+  posts: MarkdownInstance<Record<string, any>>[];
+};
+const { posts } = Astro.props;
+---
+
 <div class="flex flex-wrap gap-8 bg-base-100 px-8 py-16">
-  <a
-    href="/blog/youtube-new-controls"
-    class="card w-96 bg-primary text-primary-content"
-  >
-    <div class="card-body">
-      <h2 class="card-title">Blog Post</h2>
-      <p>Description</p>
-    </div>
-  </a>
+  {
+    posts.map((post) => (
+      <a
+        href={`/blog/${findSlug(post.file)}`}
+        class="card bg-primary text-primary-content w-96"
+      >
+        <div class="card-body">
+          <h2 class="card-title">{post.frontmatter.title}</h2>
+          <p>{post.frontmatter.description}</p>
+        </div>
+      </a>
+    ))
+  }
 </div>
