@@ -9,15 +9,17 @@ type Props = {
 
 export const Toggle = ({ icons, texts, ...rest }: Props) => {
   const [isChecked, setChecked] = createSignal(true);
+  const toggle = () => setChecked((prev) => !prev);
+  const currentIcon = () => icons?.[isChecked() ? 0 : 1];
+  const currentText = () => texts?.[isChecked() ? 0 : 1];
   return (
     <YtButton
       {...rest}
       inverted={isChecked()}
-      text={texts?.[isChecked() ? 1 : 0]}
-      icon={icons?.[isChecked() ? 1 : 0]}
-      onClick={() => {
-        setChecked((prev) => !prev);
-      }}
-    />
+      icon={currentIcon()}
+      onClick={toggle}
+    >
+      {currentText()}
+    </YtButton>
   );
 };

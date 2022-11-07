@@ -11,11 +11,11 @@ import { Dual } from "./Dual";
   <div class="grid grid-cols-2 gap-4 items-center w-full">
     <span class="text-yt-text">Simple button</span>
     <div>
-      <YtButton text="Subscribe" />
+      <YtButton>Subscribe</YtButton>
     </div>
     <span class="text-yt-text">With icon</span>
     <div>
-      <YtButton icon={ShareIcon} text="Share" />
+      <YtButton icon={ShareIcon}>Share</YtButton>
     </div>
     <span class="text-yt-text">Icon Button</span>
     <div>
@@ -27,11 +27,11 @@ import { Dual } from "./Dual";
     </div>
     <span class="text-yt-text">Toggle</span>
     <div>
-      <Toggle texts={["Subscribed", "Subscribe"]} client:idle />
+      <Toggle texts={["Subscribed", "Subscribe"]} client:load />
     </div>
     <span class="text-yt-text">Dual</span>
     <div>
-      <Dual client:idle />
+      <Dual client:load />
     </div>
   </div>
 </Background>
