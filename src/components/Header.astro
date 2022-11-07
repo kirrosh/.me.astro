@@ -42,7 +42,7 @@ const path = Astro.url.pathname;
       <a
         class:list={[
           "btn btn-ghost no-animation normal-case text-xl",
-          { underline: path === "/blog" },
+          { underline: path?.includes("/blog") },
         ]}
         href="/blog">Blog</a
       >
