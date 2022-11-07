@@ -4,6 +4,7 @@ import { YtButton } from "./YtButton";
 import { Toggle } from "./Toggle";
 import { ShareIcon } from "../icons/share";
 import { DotsIcon } from "../icons/dots";
+import { Dual } from "./Dual";
 ---
 
 <Background>
@@ -26,7 +27,11 @@ import { DotsIcon } from "../icons/dots";
     </div>
     <span class="text-yt-text">Toggle</span>
     <div>
-      <Toggle texts={["Unsubscribe", "Subscribe"]} client:load />
+      <Toggle texts={["Subscribed", "Subscribe"]} client:idle />
+    </div>
+    <span class="text-yt-text">Dual</span>
+    <div>
+      <Dual client:idle />
     </div>
   </div>
 </Background>

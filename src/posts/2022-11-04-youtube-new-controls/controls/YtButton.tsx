@@ -17,12 +17,12 @@ export const YtButton = (props: Props) => {
       onClick={props.onClick}
       class="pointer flex h-9 flex-1 justify-center rounded-yt py-0 text-yt"
       classList={{
-        [merged.class]: !!merged.class,
         "w-9 px-0": !!merged.icon && !merged.text,
         "px-4": !!merged.text,
         "bg-yt-text hover:bg-yt-mono text-yt-primary": merged.inverted,
         "bg-yt-control/10 text-yt-text hover:bg-yt-control/30":
           !merged.inverted,
+        [merged.class]: !!merged.class,
       }}
     >
       {merged.icon && (
