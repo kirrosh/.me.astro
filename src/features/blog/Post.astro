@@ -1,6 +1,10 @@
-<div class="w-full flex flex-col items-center">
+---
+const { title } = Astro.props;
+---
+
+<div class="w-full flex flex-col items-center pt-8">
   <article class="prose">
-    <h1>TItle</h1>
+    <h1>{title}</h1>
     <slot />
   </article>
 </div>

@@ -15,12 +15,11 @@ export async function getStaticPaths() {
   }));
 }
 
-const { Content } = Astro.props.post;
-console.log(Astro.props.post);
+const { Content, frontmatter } = Astro.props.post;
 ---
 
-<Layout title="Blog">
-  <Post>
+<Layout title={frontmatter.title}>
+  <Post title={frontmatter.title}>
     <Content />
   </Post>
 </Layout>

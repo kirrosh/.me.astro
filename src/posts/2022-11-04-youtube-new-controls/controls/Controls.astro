@@ -1,6 +1,32 @@
-<div class="py-4 px-8 bg-yt-primary grid place-items-center">
-  <button
-    class="py-0 px-4 h-9 rounded-yt text-yt-text bg-yt-button pointer flex flex-1 justify-center text-yt"
-    >Share</button
-  >
-</div>
+---
+import Background from "./Background.astro";
+import { YtButton } from "./YtButton";
+import { Toggle } from "./Toggle";
+import { ShareIcon } from "../icons/share";
+import { DotsIcon } from "../icons/dots";
+---
+
+<Background>
+  <div class="grid grid-cols-2 gap-4 items-center w-full">
+    <span class="text-yt-text">Simple button</span>
+    <div>
+      <YtButton text="Subscribe" />
+    </div>
+    <span class="text-yt-text">With icon</span>
+    <div>
+      <YtButton icon={ShareIcon} text="Share" />
+    </div>
+    <span class="text-yt-text">Icon Button</span>
+    <div>
+      <YtButton icon={DotsIcon} />
+    </div>
+    <span class="text-yt-text">Inverted</span>
+    <div>
+      <YtButton icon={DotsIcon} inverted />
+    </div>
+    <span class="text-yt-text">Toggle</span>
+    <div>
+      <Toggle texts={["Unsubscribe", "Subscribe"]} client:load />
+    </div>
+  </div>
+</Background>

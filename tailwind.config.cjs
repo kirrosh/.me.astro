@@ -2,7 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   darkMode: "class",
-  presets: [require("./presets/yt-preset.js")],
+  presets: [require("./presets/yt-preset-v2.js")],
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   theme: {
     fontFamily: {
