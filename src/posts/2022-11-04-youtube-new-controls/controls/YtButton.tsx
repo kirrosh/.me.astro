@@ -1,4 +1,4 @@
-import { mergeProps } from "solid-js";
+import { mergeProps, Show } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
 
 type Props = {
@@ -25,7 +25,7 @@ export const YtButton = (props: Props) => {
         [merged.class]: !!merged.class,
       }}
     >
-      {merged.icon && (
+      <Show when={merged.icon}>
         <div
           class="h-6 w-6"
           classList={{ "m-0": !merged.text, "-ml-1.5 mr-1.5": !!merged.text }}
@@ -34,14 +34,14 @@ export const YtButton = (props: Props) => {
             {merged.icon}
           </div>
         </div>
-      )}
-      {merged.text && (
+      </Show>
+      <Show when={merged.text}>
         <div class="overflow-hidden text-ellipsis">
           <span class="whitespace-nowrap font-yt font-medium">
             {merged.text}
           </span>
         </div>
-      )}
+      </Show>
     </button>
   );
 };
