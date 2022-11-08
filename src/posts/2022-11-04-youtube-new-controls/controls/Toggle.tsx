@@ -1,5 +1,5 @@
 import { Signal, JSX, createSignal } from "solid-js";
-import { YtButton } from "./YtButton";
+import { Button } from "./Button";
 
 type Props = {
   on: string;
@@ -11,7 +11,7 @@ export const Toggle = (props: Props) => {
   const [isChecked, setChecked] = createSignal(false);
   const toggle = () => setChecked((prev) => !prev);
   return (
-    <YtButton
+    <Button
       class={props.class}
       inverted={isChecked()}
       onClick={toggle}

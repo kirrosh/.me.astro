@@ -17,6 +17,15 @@ module.exports = {
       fontFamily: {
         yt: ["Roboto", "Arial", "sans-serif"],
       },
+      keyframes: {
+        "yt-feedback": {
+          "0%": { opacity: "0.3" },
+          "100%": { opacity: "0" },
+        },
+      },
+      animation: {
+        "yt-feedback": "yt-feedback 0.4s ease-in-out",
+      },
     },
   },
 };
