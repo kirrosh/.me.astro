@@ -6,4 +6,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind(), mdx(), solidJs()],
   output: "static",
+  site: "https://www.kirrosh.xyz",
 });
