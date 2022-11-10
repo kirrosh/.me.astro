@@ -1,6 +1,9 @@
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
   theme: {
     extend: {
+      gradientColorStops: {},
       colors: {
         "yt-primary": "#0f0f0f",
         "yt-control": "#ffffff",

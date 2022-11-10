@@ -1,9 +1,7 @@
-import { Background } from "./Background";
-import { Button } from "./Button";
-import { Toggle } from "./Toggle";
-import { ShareIcon } from "../icons/share";
-import { DotsIcon } from "../icons/dots";
-import { Dual } from "./Dual";
+import { Background } from "../Background";
+import { Button, Dual, Toggle } from ".";
+import { ShareIcon } from "./icons/share";
+import { DotsIcon } from "./icons/dots";
 
 export const Controls = () => {
   return (

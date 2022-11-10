@@ -8,6 +8,7 @@ type Props = {
   inverted?: boolean;
   class?: string;
   onClick?: JSX.DOMAttributes<HTMLButtonElement>["onClick"];
+  style?: JSX.CSSProperties;
 };
 
 export const Button = (props: Props) => {
@@ -15,6 +16,7 @@ export const Button = (props: Props) => {
   return (
     <button
       onClick={props.onClick}
+      style={props.style}
       class="pointer relative flex h-9 flex-1 justify-center rounded-yt py-0 text-yt"
       classList={{
         "w-9 px-0": !!merged.icon && !props.text,

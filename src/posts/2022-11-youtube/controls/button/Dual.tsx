@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
-import { DislikeIcon, DislikeFilledIcon } from "../icons/dislike";
-import { LikeIcon, LikeFilledIcon } from "../icons/like";
+import { DislikeIcon, DislikeFilledIcon } from "./icons/dislike";
+import { LikeIcon, LikeFilledIcon } from "./icons/like";
 import { Button } from "./Button";
 
 type Props = {

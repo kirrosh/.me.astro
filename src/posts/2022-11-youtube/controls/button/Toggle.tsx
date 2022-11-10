@@ -1,18 +1,21 @@
-import { Signal, JSX, createSignal } from "solid-js";
+import { Signal, JSX, createSignal, mergeProps } from "solid-js";
 import { Button } from "./Button";
 
 type Props = {
   on: string;
-  off: string;
+  off?: string;
   class?: string;
+  style?: JSX.CSSProperties;
 };
 
-export const Toggle = (props: Props) => {
+export const Toggle = (p: Props) => {
+  const props = mergeProps({ off: p.on }, p);
   const [isChecked, setChecked] = createSignal(false);
   const toggle = () => setChecked((prev) => !prev);
   return (
     <Button
       class={props.class}
+      style={props.style}
       inverted={isChecked()}
       onClick={toggle}
       text={[isChecked() ? props.on : props.off]}
