@@ -13,7 +13,7 @@ export const Tags = () => {
     setMax(list.clientWidth - parent.clientWidth);
   });
   return (
-    <div class="relative flex w-[494px] justify-center">
+    <div class="relative flex justify-center">
       {position() !== 0 && (
         <div class="absolute left-0 z-20 flex h-full items-center bg-transparent after:h-full after:w-12 after:shadow-right">
           <div class="bg-yt-primary ">
@@ -31,7 +31,7 @@ export const Tags = () => {
       >
         <div
           ref={list}
-          class="flex w-min flex-nowrap transition-transform"
+          class="flex w-min flex-nowrap overflow-hidden transition-transform"
           style={{
             transform: `translateX(${Math.max(
               position() * -320,
