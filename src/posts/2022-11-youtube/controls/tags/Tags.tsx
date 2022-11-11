@@ -51,7 +51,7 @@ export const Tags = () => {
           <Tag signal={selectedSignal} id={10} />
         </div>
       </div>
-      <Show when={scroll.x !== null && scroll.x < max()}>
+      <Show when={scroll.x !== null && scroll.x <= max()}>
         <div class="absolute right-0 z-20 flex h-full items-center bg-transparent before:h-full before:w-12 before:shadow-left">
           <div class="bg-yt-primary">
             <Button
