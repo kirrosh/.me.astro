@@ -1,4 +1,5 @@
-import { createSignal, mergeProps, onMount, Signal } from "solid-js";
+import { createSignal, mergeProps, onMount, Show, Signal } from "solid-js";
+import { createScrollPosition } from "@solid-primitives/scroll";
 import { Button, Toggle } from "../button";
 import { Left } from "../button/icons/left";
 import { Right } from "../button/icons/right";
@@ -6,8 +7,9 @@ import { Right } from "../button/icons/right";
 export const Tags = () => {
   let list: HTMLDivElement | undefined;
   let parent: HTMLDivElement | undefined;
-  const [position, setPosition] = createSignal(0);
-  const [length, setMax] = createSignal(0);
+  const [max, setMax] = createSignal(0);
+  // pass as function
+  const scroll = createScrollPosition(() => parent);
 
   const selectedSignal = createSignal<number>();
   onMount(() => {
@@ -16,7 +18,7 @@ export const Tags = () => {
   });
   return (
     <div class="relative flex justify-center">
-      {position() !== 0 && (
+      <Show when={scroll.x !== 0}>
         <div class="absolute left-0 z-20 flex h-full items-center bg-transparent after:h-full after:w-12 after:shadow-right">
           <div class="bg-yt-primary ">
             <Button
@@ -24,25 +26,18 @@ export const Tags = () => {
               style={{
                 "background-color": "transparent",
               }}
-              onClick={() => setPosition((prev) => prev - 1)}
+              onClick={() =>
+                parent?.scrollBy({ left: -100, behavior: "smooth" })
+              }
             />
           </div>
         </div>
-      )}
+      </Show>
       <div
         ref={parent}
-        class="relative w-full overflow-hidden whitespace-nowrap"
+        class="no-scrollbar relative w-full touch-pan-x touch-pan-y overflow-x-scroll whitespace-nowrap"
       >
-        <div
-          ref={list}
-          class="flex w-min flex-nowrap overflow-hidden transition-transform"
-          style={{
-            transform: `translateX(${Math.max(
-              position() * -320,
-              -1 * length()
-            )}px)`,
-          }}
-        >
+        <div ref={list} class="flex w-min flex-nowrap transition-transform">
           <Tag signal={selectedSignal} id={0} />
           <Tag signal={selectedSignal} id={1} />
           <Tag signal={selectedSignal} id={2} />
@@ -56,7 +51,7 @@ export const Tags = () => {
           <Tag signal={selectedSignal} id={10} />
         </div>
       </div>
-      {position() * 320 < length() && (
+      <Show when={scroll.x !== null && scroll.x < max()}>
         <div class="absolute right-0 z-20 flex h-full items-center bg-transparent before:h-full before:w-12 before:shadow-left">
           <div class="bg-yt-primary">
             <Button
@@ -64,11 +59,13 @@ export const Tags = () => {
               style={{
                 "background-color": "transparent",
               }}
-              onClick={() => setPosition((prev) => prev + 1)}
+              onClick={() =>
+                parent?.scrollBy({ left: 100, behavior: "smooth" })
+              }
             />
           </div>
         </div>
-      )}
+      </Show>
     </div>
   );
 };

@@ -18,6 +18,12 @@ module.exports = {
           background:
             "linear-gradient(to right,#0f0f0f 20%,rgba(33,33,33,0) 80%)",
         },
+        ".no-scrollbar": {
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
       });
     }),
   ],
