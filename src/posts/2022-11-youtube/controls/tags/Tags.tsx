@@ -1,4 +1,4 @@
-import { createSignal, onMount } from "solid-js";
+import { createSignal, mergeProps, onMount, Signal } from "solid-js";
 import { Button, Toggle } from "../button";
 import { Left } from "../button/icons/left";
 import { Right } from "../button/icons/right";
@@ -8,6 +8,8 @@ export const Tags = () => {
   let parent: HTMLDivElement | undefined;
   const [position, setPosition] = createSignal(0);
   const [length, setMax] = createSignal(0);
+
+  const selectedSignal = createSignal<number>();
   onMount(() => {
     if (!list || !parent) return;
     setMax(list.clientWidth - parent.clientWidth);
@@ -19,7 +21,9 @@ export const Tags = () => {
           <div class="bg-yt-primary ">
             <Button
               icon={Left}
-              class=" bg-yt-primary"
+              style={{
+                "background-color": "transparent",
+              }}
               onClick={() => setPosition((prev) => prev - 1)}
             />
           </div>
@@ -39,27 +43,27 @@ export const Tags = () => {
             )}px)`,
           }}
         >
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
+          <Tag signal={selectedSignal} id={0} />
+          <Tag signal={selectedSignal} id={1} />
+          <Tag signal={selectedSignal} id={2} />
+          <Tag signal={selectedSignal} id={3} />
+          <Tag signal={selectedSignal} id={4} />
+          <Tag signal={selectedSignal} id={5} />
+          <Tag signal={selectedSignal} id={6} />
+          <Tag signal={selectedSignal} id={7} />
+          <Tag signal={selectedSignal} id={8} />
+          <Tag signal={selectedSignal} id={9} />
+          <Tag signal={selectedSignal} id={10} />
         </div>
       </div>
       {position() * 320 < length() && (
-        <div class="absolute right-0 z-20 flex h-full items-center bg-transparent  before:h-full before:w-12 before:shadow-left">
+        <div class="absolute right-0 z-20 flex h-full items-center bg-transparent before:h-full before:w-12 before:shadow-left">
           <div class="bg-yt-primary">
             <Button
               icon={Right}
-              class="bg-yt-primary"
+              style={{
+                "background-color": "transparent",
+              }}
               onClick={() => setPosition((prev) => prev + 1)}
             />
           </div>
@@ -69,10 +73,23 @@ export const Tags = () => {
   );
 };
 
-const Item = () => {
+type Props = {
+  id: number;
+  signal: Signal<number | undefined>;
+};
+
+const Tag = (p: Props) => {
+  const props = mergeProps({ id: 0, signal: createSignal(0) }, p);
+  const [selectedId, setSelected] = props.signal;
+  const checked = () => selectedId() === props.id;
+  const setChecked = () =>
+    checked() ? setSelected(undefined) : setSelected(props.id);
+  const signal = [checked, setChecked] as Signal<boolean>;
+
   return (
     <div class="m-3 flex">
       <Toggle
+        signal={signal}
         on="All"
         style={{
           "border-radius": "8px",

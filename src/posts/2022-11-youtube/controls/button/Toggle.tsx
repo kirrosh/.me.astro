@@ -6,11 +6,12 @@ type Props = {
   off?: string;
   class?: string;
   style?: JSX.CSSProperties;
+  signal?: Signal<boolean>;
 };
 
 export const Toggle = (p: Props) => {
-  const props = mergeProps({ off: p.on }, p);
-  const [isChecked, setChecked] = createSignal(false);
+  const props = mergeProps({ off: p.on, signal: createSignal(false) }, p);
+  const [isChecked, setChecked] = props.signal;
   const toggle = () => setChecked((prev) => !prev);
   return (
     <Button
