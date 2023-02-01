@@ -31,8 +31,6 @@ export const PtsCanvas = () => {
     );
 
   createEffect(() => {
-    console.log(store.theme);
-
     setTimeout(() => {
       color = primaryColor();
       accent = accentColor();

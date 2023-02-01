@@ -1,8 +1,7 @@
 ---
-import type { MarkdownInstance } from "astro";
-import { findSlug } from "src/utils/find-slug";
+import type { CollectionEntry } from "astro:content";
 type Props = {
-  posts: MarkdownInstance<Record<string, any>>[];
+  posts: CollectionEntry<"blog">[];
 };
 const { posts } = Astro.props;
 ---
@@ -11,12 +10,12 @@ const { posts } = Astro.props;
   {
     posts.map((post) => (
       <a
-        href={`/blog/${findSlug(post.file)}`}
+        href={`/blog/${post.slug}`}
         class="card bg-primary text-primary-content w-96"
       >
         <div class="card-body">
-          <h2 class="card-title">{post.frontmatter.title}</h2>
-          <p>{post.frontmatter.description}</p>
+          <h2 class="card-title">{post.data.title}</h2>
+          <p>{post.data.description}</p>
         </div>
       </a>
     ))
