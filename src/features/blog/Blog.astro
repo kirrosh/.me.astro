@@ -8,16 +8,27 @@ const { posts } = Astro.props;
 
 <div class="flex flex-wrap gap-8 bg-base-100 px-8 py-16">
   {
-    posts.map((post) => (
-      <a
-        href={`/blog/${post.slug}`}
-        class="card bg-primary text-primary-content w-96"
-      >
-        <div class="card-body">
-          <h2 class="card-title">{post.data.title}</h2>
-          <p>{post.data.description}</p>
-        </div>
-      </a>
-    ))
+    posts
+      // sort by date
+      .sort((a, b) => {
+        const aDate = new Date(a.data.date);
+        const bDate = new Date(b.data.date);
+        return bDate.getTime() - aDate.getTime();
+      })
+      .map((post) => (
+        <a
+          href={`/blog/${post.slug}`}
+          class="card bg-primary text-primary-content hover:bg-secondary w-96"
+        >
+          <div class="card-body">
+            <h2 class="card-title">{post.data.title}</h2>
+            <p>
+              {new Intl.DateTimeFormat("en-US", {
+                dateStyle: "long",
+              }).format(new Date(post.data.date))}
+            </p>
+          </div>
+        </a>
+      ))
   }
 </div>

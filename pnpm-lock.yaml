@@ -4,8 +4,12 @@ specifiers:
   '@astrojs/mdx': ^0.16.0
   '@astrojs/solid-js': ^2.0.1
   '@astrojs/tailwind': ^3.0.1
+  '@faker-js/faker': ^7.6.0
+  '@formkit/auto-animate': 1.0.0-beta.6
   '@solid-primitives/scroll': ^2.0.6
   '@tailwindcss/typography': ^0.5.7
+  '@tanstack/solid-table': ^8.7.9
+  '@types/node': ^18.11.18
   astro: ^2.0.5
   daisyui: ^2.38.1
   prettier: ^2.7.1
@@ -16,7 +20,10 @@ specifiers:
   tailwindcss: ^3.2.2
 
 dependencies:
+  '@faker-js/faker': 7.6.0
+  '@formkit/auto-animate': 1.0.0-beta.6
   '@solid-primitives/scroll': 2.0.6_solid-js@1.6.1
+  '@tanstack/solid-table': 8.7.9_solid-js@1.6.1
   daisyui: 2.38.1_gbtt6ss3tbiz4yjtvdr6fbrj44
   pts: 0.11.2
   tailwindcss: 3.2.2_postcss@8.4.21
@@ -26,7 +33,8 @@ devDependencies:
   '@astrojs/solid-js': 2.0.1_bjeyy7453qf5tmg62klcknioia
   '@astrojs/tailwind': 3.0.1_cgj2hmazw5bg52d2t7yw3cawdu
   '@tailwindcss/typography': 0.5.7_tailwindcss@3.2.2
-  astro: 2.0.5
+  '@types/node': 18.11.18
+  astro: 2.0.5_@types+node@18.11.18
   prettier: 2.7.1
   prettier-plugin-astro: 0.7.0
   prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
@@ -74,7 +82,7 @@ packages:
       astro: ^2.0.2
     dependencies:
       '@astrojs/prism': 2.0.0
-      astro: 2.0.5
+      astro: 2.0.5_@types+node@18.11.18
       github-slugger: 1.5.0
       import-meta-resolve: 2.1.0
       rehype-raw: 6.1.1
@@ -146,7 +154,7 @@ packages:
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.0.5
+      astro: 2.0.5_@types+node@18.11.18
       autoprefixer: 10.4.13_postcss@8.4.21
       postcss: 8.4.21
       postcss-load-config: 4.0.1_postcss@8.4.21
@@ -627,6 +635,15 @@ packages:
     dev: true
     optional: true
 
+  /@faker-js/faker/7.6.0:
+    resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: false
+
+  /@formkit/auto-animate/1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
+    dev: false
+
   /@jridgewell/gen-mapping/0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}
     engines: {node: '>=6.0.0'}
@@ -833,6 +850,21 @@ packages:
       tailwindcss: 3.2.2_postcss@8.4.21
     dev: true
 
+  /@tanstack/solid-table/8.7.9_solid-js@1.6.1:
+    resolution: {integrity: sha512-gF6AXTqg+z0M250n2Zoev0AMdSA+2ySxv/SBMieW9B8/lyuf49bJKvlPOmO3OZKmSvC0VN1DclIHweoaOSyv7Q==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      solid-js: ^1.3.13
+    dependencies:
+      '@tanstack/table-core': 8.7.9
+      solid-js: 1.6.1
+    dev: false
+
+  /@tanstack/table-core/8.7.9:
+    resolution: {integrity: sha512-4RkayPMV1oS2SKDXfQbFoct1w5k+pvGpmX18tCXMofK/VDRdA2hhxfsQlMvsJ4oTX8b0CI4Y3GDKn5T425jBCw==}
+    engines: {node: '>=12'}
+    dev: false
+
   /@types/acorn/4.0.6:
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
     dependencies:
@@ -912,6 +944,10 @@ packages:
     resolution: {integrity: sha512-3TGCfOcy8R8mMQ4CNSNOe3PG66HttvjcLzCoOpvXvDtfWOTi+uT/rxeOKm/qEwbM4SNe1O/PjdiBK2YcTjU4OQ==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: true
+
+  /@types/node/18.11.18:
+    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
 
   /@types/parse5/6.0.3:
@@ -1036,7 +1072,7 @@ packages:
     hasBin: true
     dev: true
 
-  /astro/2.0.5:
+  /astro/2.0.5_@types+node@18.11.18:
     resolution: {integrity: sha512-ZuTbCOZLOnVOQ/np+82H3apL4TQ9jRUtIMfnAAUr4BG8NthwoY718avm5lfiI25bDqs7QA012Zh6l1h3RpJwtw==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1089,7 +1125,7 @@ packages:
       typescript: 4.8.4
       unist-util-visit: 4.1.1
       vfile: 5.3.5
-      vite: 4.0.4
+      vite: 4.0.4_@types+node@18.11.18
       vitefu: 0.2.4_vite@4.0.4
       yargs-parser: 21.1.1
       zod: 3.20.2
@@ -3852,7 +3888,7 @@ packages:
       vfile-message: 3.1.2
     dev: true
 
-  /vite/4.0.4:
+  /vite/4.0.4_@types+node@18.11.18:
     resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3877,6 +3913,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.11.18
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
@@ -3902,7 +3939,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.0.4
+      vite: 4.0.4_@types+node@18.11.18
     dev: true
 
   /vscode-css-languageservice/6.1.1:
