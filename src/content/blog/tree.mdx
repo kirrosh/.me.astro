@@ -67,36 +67,35 @@ Here is an example of a text column:
     },
   },
 ```
-And here is an example of a selection column:
-
+And here is an example of a expand column:
 ```jsx
   {
-    accessorKey: "select",
+    accessorKey: "expand",
     cell: (info) => (
-      <IndeterminateCheckbox
-        {...{
-          checked: info.row.subRows.length
-            ? info.row.getIsAllSubRowsSelected()
-            : info.row.getIsSelected(),
-          disabled: !info.row.getCanSelect(),
-          indeterminate: info.row.getIsSomeSelected(),
-          onChange: (e) => {
-            if (info.row.getIsSomeSelected()) {
-              info.row.toggleSelected(false);
-              return;
-            }
-            info.row.toggleSelected();
-          },
-        }}
-      />
+      <Show when={info.row.getCanExpand()} fallback={<div class="w-8" />}>
+        <button
+          class="btn-square btn-xs btn"
+          onclick={info.row.getToggleExpandedHandler()}
+        >
+          <svg
+           // svg icon
+          >
+            <Show when={!info.row.getIsExpanded()}>
+              <line
+                // vertical line
+              />
+            </Show>
+            <line
+              // horizontal line
+            />
+          </svg>
+        </button>
+      </Show>
     ),
-  }
-
+  },
 ```
-
 ### Creating the Table
 Here's the code for creating a `table` object using `createSolidTable` function:
-
 ```js
 const table = createSolidTable({
   get data() {
