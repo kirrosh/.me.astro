@@ -1,5 +1,4 @@
-import { createEffect, createSignal, For, Show } from "solid-js";
-import { createAutoAnimate } from "@formkit/auto-animate/solid";
+import { createSignal, For, Show } from "solid-js";
 
 import {
   createSolidTable,
@@ -121,7 +120,6 @@ const columns: ColumnDef<Person>[] = [
 ];
 
 function SolidTree() {
-  let [parent, enable] = createAutoAnimate<HTMLDivElement>();
   const [globalFilter, setGlobalFilter] = createSignal("");
   const [expanded, setExpanded] = createSignal<ExpandedState>({});
 
@@ -148,14 +146,6 @@ function SolidTree() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  createEffect(() => {
-    if (globalFilter() === "") {
-      enable(true);
-    } else {
-      enable(false);
-    }
-  });
-
   return (
     <div class=" p-2">
       <DebouncedInput
@@ -169,7 +159,6 @@ function SolidTree() {
         style={{
           "max-height": TOP_ITEMS_COUNT * ITEM_HEIGHT + 8 + "px",
         }}
-        ref={parent}
       >
         <For each={table.getRowModel().rows}>
           {(row) => (
