@@ -24,6 +24,18 @@ module.exports = {
             display: "none",
           },
         },
+        ".inner-scrollbar": {
+          "&::-webkit-scrollbar": {
+            width: ".375rem!important",
+            height: ".375rem!important",
+          },
+          "&::-webkit-scrollbar-thumb ": {
+            "background-color": "rgba(100,116,139,.5)!important",
+          },
+          "&::-webkit-scrollbar-track": {
+            "background-color": "rgba(100,116,139,.16)!important",
+          },
+        },
       });
     }),
   ],

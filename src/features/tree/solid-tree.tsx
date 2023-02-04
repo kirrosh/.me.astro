@@ -1,4 +1,4 @@
-import { createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show } from "solid-js";
 import { createAutoAnimate } from "@formkit/auto-animate/solid";
 
 import {
@@ -16,7 +16,10 @@ import IndeterminateCheckbox from "./solid-Indeterminate-checkbox";
 import DebouncedInput from "./solid-debounced-input";
 import { globalFilterFn } from "./global-filter-fn";
 
-const [data, setData] = createSignal(makeData(10, 5, 3));
+const TOP_ITEMS_COUNT = 10;
+const [data, setData] = createSignal(makeData(TOP_ITEMS_COUNT, 5, 3));
+
+const ITEM_HEIGHT = 28 + 4 * 2;
 
 const columns: ColumnDef<Person>[] = [
   {
@@ -118,7 +121,7 @@ const columns: ColumnDef<Person>[] = [
 ];
 
 function SolidTree() {
-  let [parent] = createAutoAnimate<HTMLDivElement>();
+  let [parent, enable] = createAutoAnimate<HTMLDivElement>();
   const [globalFilter, setGlobalFilter] = createSignal("");
   const [expanded, setExpanded] = createSignal<ExpandedState>({});
 
@@ -131,7 +134,7 @@ function SolidTree() {
         return globalFilter();
       },
       get expanded() {
-        return globalFilter() ? true : expanded();
+        return expanded();
       },
     },
     columns,
@@ -145,15 +148,29 @@ function SolidTree() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  createEffect(() => {
+    if (globalFilter() === "") {
+      enable(true);
+    } else {
+      enable(false);
+    }
+  });
+
   return (
-    <div class="h-[500px] overflow-y-auto overflow-x-hidden p-2">
+    <div class=" p-2">
       <DebouncedInput
         value={globalFilter() ?? ""}
         onChange={(value) => {
           setGlobalFilter(String(value));
         }}
       />
-      <ul class="w-[400px] select-none p-0" ref={parent}>
+      <ul
+        class="inner-scrollbar w-full select-none overflow-y-auto overflow-x-hidden p-0"
+        style={{
+          "max-height": TOP_ITEMS_COUNT * ITEM_HEIGHT + 8 + "px",
+        }}
+        ref={parent}
+      >
         <For each={table.getRowModel().rows}>
           {(row) => (
             <li

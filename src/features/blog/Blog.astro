@@ -11,8 +11,8 @@ const { posts } = Astro.props;
     posts
       // sort by date
       .sort((a, b) => {
-        const aDate = new Date(a.data.date);
-        const bDate = new Date(b.data.date);
+        const aDate = new Date(a.data.updated);
+        const bDate = new Date(b.data.updated);
         return bDate.getTime() - aDate.getTime();
       })
       .map((post) => (
@@ -25,7 +25,7 @@ const { posts } = Astro.props;
             <p>
               {new Intl.DateTimeFormat("en-US", {
                 dateStyle: "long",
-              }).format(new Date(post.data.date))}
+              }).format(new Date(post.data.updated))}
             </p>
           </div>
         </a>

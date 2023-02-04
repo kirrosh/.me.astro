@@ -1,9 +1,147 @@
 ---
-title: Headless Tree component
-description: Headless Tree component build on top of Tanstack Table
-date: 2023-02-02
+title: Creating a Tree UI Component with TanStack Table
+description: Learn how to build a Tree component using TanStack Table, a headless UI library for TypeScript/JavaScript, React, Vue, and Solid.
+created: 2023-02-02
+updated: 2023-02-04
 ---
 
 import SolidTree from "@features/tree/solid-tree";
 
+In this post, I will show you how to build a Tree component using [TanStack Table](https://tanstack.com/table/v8), a headless UI library for TypeScript/JavaScript, React, Vue, and Solid. TanStack Table provides the logic, state, processing, and API for building powerful tables and datagrids, making it easier to build complex UI components.
+## Solid JS Example
+
+Here is a Solid JS example with row selection, filtering, and sorting, and also animated with simple, zero-config [AutoAnimate](https://auto-animate.formkit.com/)
+
 <SolidTree client:load />
+
+## Why use TanStack Table for building Tree components?
+
+- Full control over markup and styles: With TanStack Table, you have full control over the markup and styles of your Tree component, allowing you to create a custom and branded look and feel.
+- Supports all styling patterns: Whether you prefer CSS, CSS-in-JS, or UI libraries, TanStack Table supports all styling patterns, giving you the flexibility to use the approach that works best for your project.
+- Smaller bundle sizes: TanStack Table has a smaller bundle size compared to component-based libraries, making it a more lightweight option for building Tree components.
+- Portable: TanStack Table is a headless library, meaning it can be run anywhere JavaScript runs, making it a portable option for building Tree components.
+
+## Installation
+To install TanStack Table, you can use npm:
+```
+Solid Table
+$ npm install @tanstack/solid-table
+
+or React Table
+$ npm install @tanstack/react-table
+
+or Table Core (no framework)
+$ npm install @tanstack/table-core
+
+```
+
+You can install packages for Vue, Svelte, React, Solid, or use @tanstack/table-core with any other framework.
+
+## Creating a Table
+
+Here is a simple example of how to create a table with TanStack Table using Solid JS. You can use any other framework as well.
+
+### Create a dataset with 3 levels of nesting
+
+```ts
+const [data, setData] = createSignal(makeData(10, 5, 3));
+```
+
+### Create columns
+
+I will only display a few columns in this example. For a complete understanding, it's recommended to visit the official documentation: [Column Definitions](https://tanstack.com/table/v8/docs/guide/column-defs). 
+Here is an example of a text column:
+
+```jsx
+  {
+    accessorKey: "firstName",
+    cell: (info) => {
+      return (
+        <div
+          class="mr-auto w-full cursor-pointer pl-2"
+          onclick={info.row.getToggleExpandedHandler()}
+        >
+          {info.getValue<string>()}
+        </div>
+      );
+    },
+  },
+```
+And here is an example of a selection column:
+
+```jsx
+  {
+    accessorKey: "select",
+    cell: (info) => (
+      <IndeterminateCheckbox
+        {...{
+          checked: info.row.subRows.length
+            ? info.row.getIsAllSubRowsSelected()
+            : info.row.getIsSelected(),
+          disabled: !info.row.getCanSelect(),
+          indeterminate: info.row.getIsSomeSelected(),
+          onChange: (e) => {
+            if (info.row.getIsSomeSelected()) {
+              info.row.toggleSelected(false);
+              return;
+            }
+            info.row.toggleSelected();
+          },
+        }}
+      />
+    ),
+  }
+
+```
+
+### Creating the Table
+Here's the code for creating a `table` object using `createSolidTable` function:
+
+```js
+const table = createSolidTable({
+  get data() {
+    return data();
+  },
+  state: {
+    /** Table state could be controlled */
+  },    
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  getExpandedRowModel: getExpandedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+  getSubRows: (row) => row.subRows,
+  enableRowSelection: true,
+});
+```
+
+### Creating the Tree Component
+With the `table` object created, we now need to build a tree component. We will only use the table rows and cells and ignore features like header, footer, and pagination. Here's the code:
+```jsx
+<ul
+    class="..."
+  >
+  <For each={table.getRowModel().rows}>
+    {(row) => (
+      <li
+        class="flex cursor-pointer items-center gap-2"
+        style={{
+          "padding-left": 16 * row.depth + "px",
+        }}
+      >
+        <For each={row.getVisibleCells()}>
+          {(cell) =>
+            flexRender(cell.column.columnDef.cell, cell.getContext())
+          }
+        </For>
+      </li>
+    )}
+  </For>
+</ul>
+```
+There's no need to use recursion as the table rows are already in a flat array. You can calculate the padding for each row using the `depth` property.
+# Summary
+TanStack Table provides a robust platform for constructing complex UI components, with an architecture that makes it suitable for building various tables, datagrids, and even tree components.
+## Resources
+
+- [Github source code](https://github.com/kirrosh/.me.astro/tree/master/src/features/tree)
+- [React Example on StackBlitz](https://stackblitz.com/edit/vitejs-vite-c3hd27?file=src/App.tsx)

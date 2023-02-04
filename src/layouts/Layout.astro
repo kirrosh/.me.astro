@@ -48,7 +48,7 @@ const { title, frontmatter } = Astro.props as Props;
       })();
     </script>
     <Header />
-    <main class="flex-1 relative">
+    <main class="flex-1 relative overflow-auto pb-10">
       <slot />
     </main>
     <footer

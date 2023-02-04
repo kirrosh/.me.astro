@@ -28,7 +28,7 @@ function DebouncedInput(
     debounce?: number;
   } & Omit<JSX.DOMAttributes<HTMLInputElement>, "onChange">
 ) {
-  const onChange = debounce((message: string) => props.onChange(message), 250);
+  const onChange = debounce((message: string) => props.onChange(message), 100);
 
   return (
     <input
