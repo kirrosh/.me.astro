@@ -25,6 +25,12 @@ const { posts } = Astro.props;
             <p>
               {new Intl.DateTimeFormat("en-US", {
                 dateStyle: "long",
+              }).format(new Date(post.data.created))}
+            </p>
+            <p class="font-semibold">
+              Updated:{" "}
+              {new Intl.DateTimeFormat("en-US", {
+                dateStyle: "long",
               }).format(new Date(post.data.updated))}
             </p>
           </div>
