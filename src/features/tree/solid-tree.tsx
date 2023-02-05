@@ -26,6 +26,7 @@ const columns: ColumnDef<Person>[] = [
     cell: (info) => (
       <Show when={info.row.getCanExpand()} fallback={<div class="w-8" />}>
         <button
+          aria-label={`Toggle expand row ${info.row.id}`}
           class="btn-square btn-xs btn"
           onclick={info.row.getToggleExpandedHandler()}
         >
@@ -65,6 +66,7 @@ const columns: ColumnDef<Person>[] = [
     accessorKey: "select",
     cell: (info) => (
       <IndeterminateCheckbox
+        aria-label={`Toggle select row ${info.row.id}`}
         {...{
           checked: info.row.subRows.length
             ? info.row.getIsAllSubRowsSelected()
@@ -99,7 +101,7 @@ const columns: ColumnDef<Person>[] = [
     accessorKey: "actions",
 
     cell: (info) => (
-      <button tabindex="0" class="btn-ghost btn-xs btn">
+      <button tabindex="0" class="btn-ghost btn-xs btn" aria-label="Actions">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-4 w-4"

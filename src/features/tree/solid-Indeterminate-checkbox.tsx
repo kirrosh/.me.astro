@@ -14,16 +14,7 @@ function IndeterminateCheckbox(
     }
   });
 
-  return (
-    <input
-      ref={ref}
-      type="checkbox"
-      checked={props.checked}
-      onChange={props.onChange}
-      disabled={props.disabled}
-      class="checkbox"
-    />
-  );
+  return <input ref={ref} type="checkbox" class="checkbox" {...props} />;
 }
 
 export default IndeterminateCheckbox;

@@ -20,7 +20,7 @@ export const ThemePicker = () => {
         tabindex="0"
         class="dropdown-content menu rounded-box max-h-[400px] w-52  bg-base-100 p-2 shadow"
       >
-        <div class="overflow-y-auto">
+        <div class="inner-scrollbar overflow-y-auto">
           <For each={themes}>
             {(theme, i) => (
               <li
@@ -28,7 +28,7 @@ export const ThemePicker = () => {
                   setTheme(theme);
                 }}
               >
-                <a>{capitalize(theme)}</a>
+                <span>{capitalize(theme)}</span>
               </li>
             )}
           </For>

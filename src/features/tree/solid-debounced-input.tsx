@@ -32,7 +32,8 @@ function DebouncedInput(
 
   return (
     <input
-      placeholder="Type here"
+      aria-label="Search"
+      placeholder="Search by name..."
       class="input-bordered input w-full max-w-xs"
       value={props.value}
       onInput={(e) => {

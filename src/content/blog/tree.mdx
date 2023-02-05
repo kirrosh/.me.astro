@@ -8,11 +8,12 @@ updated: 2023-02-04
 import SolidTree from "@features/tree/solid-tree";
 
 In this post, I will show you how to build a Tree component using [TanStack Table](https://tanstack.com/table/v8), a headless UI library for TypeScript/JavaScript, React, Vue, and Solid. TanStack Table provides the logic, state, processing, and API for building powerful tables and datagrids, making it easier to build complex UI components.
+
 ## Solid JS Example
 
 Here is a Solid JS example with row selection, filtering, and sorting.
 
-<SolidTree client:load />
+<SolidTree client:idle />
 
 ## Why use TanStack Table for building Tree components?
 
@@ -22,7 +23,9 @@ Here is a Solid JS example with row selection, filtering, and sorting.
 - Portable: TanStack Table is a headless library, meaning it can be run anywhere JavaScript runs, making it a portable option for building Tree components.
 
 ## Installation
+
 To install TanStack Table, you can use npm:
+
 ```
 Solid Table
 $ npm install @tanstack/solid-table
@@ -49,7 +52,7 @@ const [data, setData] = createSignal(makeData(10, 5, 3));
 
 ### Create columns
 
-I will only display a few columns in this example. For a complete understanding, it's recommended to visit the official documentation: [Column Definitions](https://tanstack.com/table/v8/docs/guide/column-defs). 
+I will only display a few columns in this example. For a complete understanding, it's recommended to visit the official documentation: [Column Definitions](https://tanstack.com/table/v8/docs/guide/column-defs).
 Here is an example of a text column:
 
 ```jsx
@@ -70,7 +73,9 @@ const columns = [
   ...
 ];
 ```
+
 And here is an example of a expand column:
+
 ```jsx
   {
     accessorKey: "expand",
@@ -97,10 +102,12 @@ And here is an example of a expand column:
     ),
   },
 ```
-### Creating the Table
-Here's the code for creating a `table` object using `createSolidTable` function:
-```js
 
+### Creating the Table
+
+Here's the code for creating a `table` object using `createSolidTable` function:
+
+```js
 import {
   createSolidTable,
   getCoreRowModel,
@@ -114,7 +121,7 @@ const table = createSolidTable({
   },
   state: {
     /** Table state could be controlled */
-  },    
+  },
   columns,
   getCoreRowModel: getCoreRowModel(),
   getExpandedRowModel: getExpandedRowModel(),
@@ -125,11 +132,11 @@ const table = createSolidTable({
 ```
 
 ### Creating the Tree Component
+
 With the `table` object created, we now need to build a tree component. We will only use the table rows and cells and ignore features like header, footer, and pagination. Here's the code:
+
 ```jsx
-<ul
-    class="..."
-  >
+<ul class="...">
   <For each={table.getRowModel().rows}>
     {(row) => (
       <li
@@ -139,18 +146,20 @@ With the `table` object created, we now need to build a tree component. We will 
         }}
       >
         <For each={row.getVisibleCells()}>
-          {(cell) =>
-            flexRender(cell.column.columnDef.cell, cell.getContext())
-          }
+          {(cell) => flexRender(cell.column.columnDef.cell, cell.getContext())}
         </For>
       </li>
     )}
   </For>
 </ul>
 ```
+
 There's no need to use recursion as the table rows are already in a flat array. You can calculate the padding for each row using the `depth` property.
+
 # Summary
+
 TanStack Table provides a robust platform for constructing complex UI components, with an architecture that makes it suitable for building various tables, datagrids, and even tree components.
+
 ## Resources
 
 - [Github source code](https://github.com/kirrosh/.me.astro/tree/master/src/features/tree)
