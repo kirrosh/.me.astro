@@ -1,17 +1,282 @@
 ---
-title: Some Youtube controls
-description: Youtube UI controls with Tailwind CSS
+title: Custom YouTube-Style Button with Tailwind CSS
+description: Creating a Custom Button Component in the Style of YouTube with Tailwind CSS
 created: 2022-11-19
-updated: 2022-11-19
+updated: 2023-02-05
 ---
 
-import { Controls } from "@features/youtube/controls/button/Buttons";
-import { Controls as Tags } from "@features/youtube/controls/tags/Controls";
+import {
+  Button,
+  Controls,
+  Dual,
+  Toggle,
+} from "@features/youtube/controls/button";
+import { Background } from "@features/youtube/controls/Background";
+import { Controls as Tags } from "@features/youtube/controls/tags";
 
-## Buttons
+As a web developer, it is common to use libraries and frameworks to build your projects. However, sometimes it can be more beneficial to build components from scratch. In this blog post, we will go over the steps of creating a custom button component in the style of YouTube, using the SolidJS and Tailwind CSS libraries.
 
-<Controls client:load />
+<Controls client:idle />
 
-## Tags
+## Setting up Tailwind CSS
 
-<Tags client:load />
+The first step is to create a Tailwind CSS preset with the colors and styles specific to the YouTube design. This preset will extend the default Tailwind CSS configuration and will be used to style the button component.
+
+```js
+// presets\yt-preset-v2.js
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  theme: {
+    extend: {
+      gradientColorStops: {},
+      colors: {
+        "yt-primary": "#0f0f0f",
+        "yt-control": "#ffffff",
+        "yt-mono": "#d9d9d9",
+        "yt-text": "#f1f1f1",
+      },
+      fontSize: {
+        yt: ["14px", "36px"],
+      },
+
+      borderRadius: {
+        yt: "18px;",
+      },
+      fontFamily: {
+        yt: ["Roboto", "Arial", "sans-serif"],
+      },
+      keyframes: {
+        "yt-feedback": {
+          "0%": { opacity: "0.3" },
+          "100%": { opacity: "0" },
+        },
+      },
+      animation: {
+        "yt-feedback": "yt-feedback 0.4s ease-in-out",
+      },
+    },
+  },
+};
+```
+
+```js
+// tailwind.config.cjs
+module.exports = {
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  darkMode: "class",
+  presets: [require("./presets/yt-preset-v2.js")],
+...
+};
+```
+
+## Creating the Button component with SolidJS and Tailwind
+
+<Background>
+  <Button client:idle text={"Subscribe"} />
+</Background>
+
+Next, we create the custom button component using SolidJS and Tailwind CSS. The component will take in various props such as icon, text, inverted, class, onClick, and style.
+
+### Button.tsx
+
+```tsx
+import { Show } from "solid-js";
+import type { JSX } from "solid-js/jsx-runtime";
+import { TochFeedback } from "./TochFeedback";
+import { twMerge } from "tailwind-merge";
+
+type Props = {
+  icon?: JSX.Element;
+  text?: JSX.Element;
+  inverted?: boolean;
+  class?: string;
+  onClick?: JSX.DOMAttributes<HTMLButtonElement>["onClick"];
+  style?: JSX.CSSProperties;
+};
+
+export const Button = (props: Props) => {
+  const className = twMerge(
+    "pointer relative flex h-9 flex-1 justify-center rounded-yt py-0 text-yt",
+    props.class
+  );
+  return (
+    <button
+      onClick={props.onClick}
+      style={props.style}
+      class={className}
+      classList={{
+        "w-9 px-0": !!props.icon && !props.text,
+        "px-4": !!props.text,
+        "bg-yt-text hover:bg-yt-mono text-yt-primary": props.inverted,
+        "bg-yt-control/10 text-yt-text hover:bg-yt-control/30": !props.inverted,
+      }}
+    >
+      <TochFeedback />
+      <Show when={props.icon}>
+        <div
+          class="h-6 w-6"
+          classList={{
+            "m-0": !props.text,
+            "-ml-1.5 mr-1.5": !!props.text,
+          }}
+        >
+          <div class="inline-flex h-6 w-6 items-center justify-center fill-current align-middle">
+            {props.icon}
+          </div>
+        </div>
+      </Show>
+      <Show when={props.text}>
+        <div class="overflow-hidden text-ellipsis">
+          <span class="font-yt whitespace-nowrap font-medium">
+            {props.text}
+          </span>
+        </div>
+      </Show>
+    </button>
+  );
+};
+```
+
+SolidJS offers a remarkable feature where the classList prop can be utilized to conditionally add classes to an element. This provides a simple and flexible way to alter an element's classes based on the props passed to the component. However, caution must be taken when using this feature with Tailwind CSS, as the class attributes from props may not always overwrite existing classes. To effectively merge Tailwind classes, it's recommended to use tools such as [tailwind-merge](https://github.com/dcastil/tailwind-merge).
+
+### TochFeedback.tsx
+
+Let's create a component that displays a feedback animation upon button press, replicating the one used on the YouTube website, using Tailwind CSS. This component will be incorporated into our Button component.
+
+<Background>
+  <div class="flex gap-4">
+    <Button text={"Feedback Off"} />
+    <Button client:idle text={"Feedback On"} />
+  </div>
+</Background>
+```tsx import {createSignal} from "solid-js";
+
+export const TochFeedback = () => {
+  const [animate, setAnimate] = createSignal(false);
+  const [pressed, setPressed] = createSignal(false);
+  return (
+    <div style="border-radius: inherit;">
+      <div
+        class=" absolute top-0 bottom-0 right-0 left-0"
+        aria-hidden="true"
+        style="border-radius: inherit;"
+        onmouseup={() => {
+          setPressed(false);
+          setAnimate(true);
+          setTimeout(() => {
+            setAnimate(false);
+          }, 300);
+        }}
+        onmousedown={() => {
+          setPressed(true);
+        }}
+      >
+        <div
+          class="absolute top-0 bottom-0 right-0 left-0  border border-white opacity-0"
+          style="border-radius: inherit;"
+          classList={{
+            // see yt-preset-v2.js for details
+            "animate-yt-feedback": animate(),
+          }}
+        />
+        {/*The opacity of the background is set to 0 by default, and is set to 10 when the button is pressed.*/}
+        <div
+          class="absolute top-0 bottom-0 right-0 left-0 bg-white "
+          classList={{
+            "opacity-0": !pressed(),
+            "opacity-10": pressed(),
+          }}
+          style="border-radius: inherit;"
+          onMouseUp={() => {
+            setPressed(false);
+          }}
+          onMouseDown={() => {
+            setPressed(true);
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+```
+## Some examples
+### Toggle
+<Background>
+  <Toggle client:idle on="Subscribed" off="Subscribe" />
+</Background>
+
+```tsx
+import { Signal, JSX, createSignal, mergeProps } from "solid-js";
+import { Button } from "./Button";
+
+type Props = {
+  on: string;
+  off?: string;
+  style?: JSX.CSSProperties;
+  signal?: Signal<boolean>;
+};
+
+export const Toggle = (p: Props) => {
+  const props = mergeProps({ off: p.on, signal: createSignal(false) }, p);
+  const [isChecked, setChecked] = props.signal;
+  const toggle = () => setChecked((prev) => !prev);
+  return (
+    <Button
+      style={props.style}
+      inverted={isChecked()}
+      onClick={toggle}
+      text={[isChecked() ? props.on : props.off]}
+    />
+  );
+};
+```
+
+### Dual Button
+
+<Background>
+  <Dual client:idle />
+</Background>
+
+```tsx
+import { createSignal } from "solid-js";
+import { DislikeIcon, DislikeFilledIcon } from "./icons/dislike";
+import { LikeIcon, LikeFilledIcon } from "./icons/like";
+import { Button } from "./Button";
+
+type Props = {
+  class?: string;
+};
+
+export const Dual = (props: Props) => {
+  const [status, setStatus] = createSignal<"like" | "dislike" | "none">("none");
+  const toggleLike = () => {
+    setStatus((prev) => {
+      return prev === "like" ? "none" : "like";
+    });
+  };
+  const toggleDislike = () => {
+    setStatus((prev) => {
+      return prev === "dislike" ? "none" : "dislike";
+    });
+  };
+
+  return (
+    <div class="flex w-min">
+      <Button
+        onClick={toggleLike}
+        class="after:bg-yt-control/10 relative rounded-r-none fill-current after:absolute after:right-0 after:top-1.5 after:h-6 after:w-[1px]"
+        icon={status() === "like" ? LikeFilledIcon : LikeIcon}
+        text={["11k"]}
+      />
+      <Button
+        onClick={toggleDislike}
+        class="w-[52px] rounded-l-none px-4"
+        icon={status() === "dislike" ? DislikeFilledIcon : DislikeIcon}
+      />
+    </div>
+  );
+};
+```
+
+Thank you for reading this article. I hope you found it informative and helpful in your own development projects.

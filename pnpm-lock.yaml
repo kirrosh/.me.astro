@@ -17,6 +17,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.1.13
   pts: ^0.11.2
   solid-js: ^1.6.1
+  tailwind-merge: ^1.9.1
   tailwindcss: ^3.2.2
 
 dependencies:
@@ -26,6 +27,7 @@ dependencies:
   '@tanstack/solid-table': 8.7.9_solid-js@1.6.1
   daisyui: 2.38.1_gbtt6ss3tbiz4yjtvdr6fbrj44
   pts: 0.11.2
+  tailwind-merge: 1.9.1
   tailwindcss: 3.2.2_postcss@8.4.21
 
 devDependencies:
@@ -3640,6 +3642,10 @@ packages:
       '@pkgr/utils': 2.3.1
       tslib: 2.4.1
     dev: true
+
+  /tailwind-merge/1.9.1:
+    resolution: {integrity: sha512-ED9MkiUHlmfh58EC1xHRqXcH1IQyRtmDP0AmXlugYkP2tvfu7ejtjFEHJLJt93mQ7ZJkcqSIgm9M394bq5vOJg==}
+    dev: false
 
   /tailwindcss/3.2.2_postcss@8.4.21:
     resolution: {integrity: sha512-c2GtSdqg+harR4QeoTmex0Ngfg8IIHNeLQH5yr2B9uZbZR1Xt1rYbjWOWTcj3YLTZhrmZnPowoQDbSRFyZHQ5Q==}

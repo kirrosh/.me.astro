@@ -28,8 +28,9 @@ export const TochFeedback = () => {
           }}
         />
         <div
-          class="absolute top-0 bottom-0 right-0 left-0 bg-white opacity-0"
+          class="absolute top-0 bottom-0 right-0 left-0 bg-white"
           classList={{
+            "opacity-0": !pressed(),
             "opacity-10": pressed(),
           }}
           style="border-radius: inherit;"
