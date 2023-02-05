@@ -53,6 +53,7 @@ I will only display a few columns in this example. For a complete understanding,
 Here is an example of a text column:
 
 ```jsx
+const columns = [
   {
     accessorKey: "firstName",
     cell: (info) => {
@@ -66,6 +67,8 @@ Here is an example of a text column:
       );
     },
   },
+  ...
+];
 ```
 And here is an example of a expand column:
 ```jsx
@@ -97,6 +100,14 @@ And here is an example of a expand column:
 ### Creating the Table
 Here's the code for creating a `table` object using `createSolidTable` function:
 ```js
+
+import {
+  createSolidTable,
+  getCoreRowModel,
+  getExpandedRowModel,
+  getFilteredRowModel,
+} from "@tanstack/solid-table";
+
 const table = createSolidTable({
   get data() {
     return data();
