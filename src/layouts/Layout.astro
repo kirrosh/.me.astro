@@ -14,7 +14,12 @@ const { title, frontmatter } = Astro.props as Props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  style={{
+    height: "-webkit-fill-available",
+  }}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -22,7 +27,12 @@ const { title, frontmatter } = Astro.props as Props;
     <meta name="generator" content={Astro.generator} />
     <title>{title || frontmatter?.title}</title>
   </head>
-  <body class="flex flex-col h-screen w-screen overflow-hidden">
+  <body
+    class="flex flex-col h-screen w-screen overflow-hidden"
+    style={{
+      height: "-webkit-fill-available",
+    }}
+  >
     <script is:inline>
       !(function () {
         try {
